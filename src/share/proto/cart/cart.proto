@@ -1,0 +1,67 @@
+syntax = "proto3";
+package cart;
+
+
+message AddReq{
+    uint64 UID = 1;          //用户id
+    uint64 GoodID = 2;     //商品id
+    double Price = 3;
+    string GoodName = 4;
+    uint32 Quantity = 5;
+}
+
+message AddResp{
+
+}
+
+message DelReq{
+    uint64 ItemID = 1;
+}
+
+message DelResp{
+
+}
+
+message UpdateReq{
+    uint64 ItemID = 1;
+    uint32 Quantity = 2;
+}
+
+message UpdateResp{
+
+}
+
+message DelAllReq{
+    uint64 UID = 1;
+}
+
+message DelAllResp{
+
+}
+
+message DisplayReq{
+    uint64 UID = 1;
+}
+
+message DisplayResp{
+    uint64 UID = 1;
+    repeated Item Items = 2;
+}
+
+message Item{
+    uint64 ItemID = 1;
+    uint64 GoodID = 2;
+    double Price = 3;
+    string GoodName = 4;
+    uint32 Quantity = 5;
+    int64  CreateTime = 6;
+    int64  ModifyTime = 7;
+}
+
+service CartService{
+    rpc Add(AddReq)returns(AddResp){}      //添加某一商品到购物车
+    rpc Del(DelReq)returns(DelResp){}       //从购物车中删除某一商品
+    rpc Update(UpdateReq)returns(UpdateResp){} //修改商品数量
+    rpc DelAll(DelAllReq)returns(DelAllResp){}  //删除整个购物车中的商品
+    rpc Display(DisplayReq)returns(DisplayResp){}  //展示购物车
+}
