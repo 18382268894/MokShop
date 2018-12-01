@@ -1,0 +1,72 @@
+syntax = "proto3";
+package order;
+
+//提交订单
+message CommitReq{
+    uint64 UID = 1;
+    //uint64 OderID = 3;
+    uint64 GoodID = 2;
+    //string GoodName = 4;
+    double Price = 3;
+    uint32 Quantity = 4;
+    repeated uint64 CouponID = 5;
+    string Address = 6;
+    uint64 Phone = 7;
+}
+
+message CommitResp{
+    uint64 OrderID = 1;
+    uint32 Status = 2;
+}
+
+//订单支付
+message PayReq{
+    uint64 OrderID = 1;
+}
+
+message PayResp{
+
+}
+
+
+//展示订单
+message DisplayReq{
+    uint64 UID = 1;
+    uint64 OrderID = 2;
+    uint64 GoodID = 3;
+}
+
+message DisplayResp{
+    uint64 OrderID = 2;
+    uint64 GoodID = 3;
+    string GoodName = 4;
+    double Price = 5;
+    uint32 Quantity = 6;
+    double Rebate = 7;
+    double Cost = 8;
+    string Username = 9;
+    uint64 Phone = 10;
+    string Email = 11;
+    string Addr = 12;
+    uint64 DeliverID = 13;
+    string DeliverName = 14;
+    int64 CrateTime = 15;
+    int64 ModifyTime = 16;
+}
+
+//取消订单
+message DelReq{
+    uint64 OrderID = 1;
+}
+
+message DelResp{
+
+}
+
+
+service OrderService{
+    rpc Commit(CommitReq) returns (CommitResp){}
+    rpc Pay(PayReq) returns(PayResp){}
+    rpc Display(DisplayReq) returns(DisplayResp){}
+    rpc Del(DelReq) returns(DelResp){}
+}
