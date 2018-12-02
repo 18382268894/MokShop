@@ -7,26 +7,34 @@
 package model
 
 type Order struct {
+	DeliverPreID uint64 `db:"deliver_pre_id",json:"deliver_pre_id"`
 	UserInfo
-	Coupon
-	Deliver
-	OrderID    uint64  `db:"order_id",json:"order_id"`
-	GoodID     uint64  `db:"good_id",json:"good_id"`
-	GoodName   string  `db:"good_name",json:"good_name"`
-	Price      float64 `db:"good_price",json:"price"`
-	Quantity   uint8	`db:"quantity",json:"quantity"`
-	Cost       float64 `db:"order_cost",json:"cost"`
-	CreateTime int64   `db:"order_create_time",json:"create_time"`
-	ModifyTime int64   `db:"order_modify_time",json:"modify_time"`
+	OrderDetail
+}
+
+type OrderDetail struct {
+	OrderID    uint64    `db:"order_id",json:"order_id"`
+	GoodID     uint64    `db:"good_id",json:"good_id"`
+	GoodName   string    `db:"good_name",json:"good_name"`
+	Price      float64   `db:"good_price",json:"price"`
+	Quantity   uint8     `db:"quantity",json:"quantity"`
+	Cost       float64   `db:"order_cost",json:"cost"`
+	CreateTime int64     `db:"order_create_time",json:"create_time"`
+	ModifyTime int64     `db:"order_modify_time",json:"modify_time"`
+	Coupons    []*Coupon `db:"coupons",json:"coupons"`
 }
 
 //快递信息
 type Deliver struct {
+	PreID       uint64  `db:"pre_id",json:"pre_id"`
+	DeliverID   uint64  `db:"deliver_id",json:"deliver_id"`
 	Type        uint8   `db:"deliver_type",json:"type"`
 	Cost        float64 `db:"deliver_cost",json:"cost"`
+	Status      uint32  `db:"status",json:"status"`
 	DeliverName string  `db:"deliver_name",json:"deliver_name"`
-	DeliverID   string  `db:"deliver_id",json:"deliver_id"`
 	CreateTime  int64   `db:"deliver_create_time",json:"create_time"`
+	Listener    string  `db:"listener",json:"listener"` //deliver的具体内容
+	UserInfo
 }
 
 //用户信息
